@@ -55,8 +55,8 @@ function App() {
     localStorage.clear();
   }
 //регситрация
-  function handleRegister(email, password) {
-    return auth.register(email, password)
+  function handleRegister(name,email, password) {
+    return auth.register(name, email, password)
       .then(() => {
         alert('Регистрация успешна')
         handleLogin(email, password);

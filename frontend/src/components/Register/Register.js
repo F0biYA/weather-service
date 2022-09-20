@@ -10,8 +10,8 @@ function Register({ handleRegister }) {
   const { register, formState: { errors, isValid }, handleSubmit} = useForm({ mode: 'onChange', });
 
   function onSubmit(data) {
-
-   handleRegister(data.email, data.password);
+    console.log(data)
+   handleRegister(data.name, data.email, data.password);
   }
 
   return (!(localStorage.getItem('login') === 'true') ?

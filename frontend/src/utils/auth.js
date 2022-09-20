@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:2000';
+export const BASE_URL = 'https://api.putilin.student.nomoreparties.sbs';
 
 
  const handleResponse = (response) => {
@@ -15,14 +15,15 @@ export const BASE_URL = 'http://localhost:2000';
     })
   }
 /* регистрируюсь на серевер */
-export const register = (email, password) => {
+export const register = (name, email, password) => {
+    console.log(name, email, password)
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ name, email, password })
     })
     .then(handleResponse)
 };

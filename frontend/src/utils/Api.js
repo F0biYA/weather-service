@@ -70,7 +70,7 @@ postCity({city, cityId}) {
     }
     }
   export const api = new Api({
-    address: "http://localhost:2000",
+    address: "https://api.putilin.student.nomoreparties.sbs",
     // headers: {
     //    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     //   "Content-Type": "application/json",

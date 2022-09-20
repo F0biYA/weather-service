@@ -17,7 +17,7 @@ const  getCards =(data) =>{  return data.map((item, index)=> {return (<CityCard 
             
             <Header signOut={props.signOut}/>
             <WeatherBlock submitCity={props.submitCity}/>
-            {localStorage.getItem('weather') && <CityCard city={props.cities}/>}
+            {localStorage.getItem('weather') && localStorage.getItem('historyWeather') && <CityCard city={props.cities}/>}
 
                 
         </main>
