@@ -10,7 +10,6 @@ function Register({ handleRegister }) {
   const { register, formState: { errors, isValid }, handleSubmit} = useForm({ mode: 'onChange', });
 
   function onSubmit(data) {
-    console.log(data)
    handleRegister(data.name, data.email, data.password);
   }
 
@@ -39,8 +38,8 @@ function Register({ handleRegister }) {
                   message: 'Количество символов не более 40',
                 },
                 pattern: {
-                  value: /^[A-Za-z]+$/i,
-                  message: 'Разрешены только латинские буквы'
+                  value: /^[A-Za-z-А-Яа-я]+$/i,
+                  message: 'Разрешены только буквы'
                 }
               })}
               >

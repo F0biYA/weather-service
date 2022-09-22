@@ -12,45 +12,46 @@ import {
 
 
 
-export default function Graphs(props) {
-    const dataArr =[];
-    const history = JSON.parse(localStorage.getItem('historyWeather'));
-    history.forecast.forecastday.forEach((item, index)=>dataArr[index]=item);
-    
-    const data = [
+function Graphs(props) {
+const dataArr = [];
+props.data.forecastday.forEach((item, index)=>dataArr[index] = item );
+
+  const 
+  
+   data = [
         {
-          name: dataArr[0].date,
-          uv: dataArr[0].day.avgtemp_c,
-           pv: dataArr[0].day.mintemp_c,
+          name: '1',
+          avg: dataArr[0].day.avgtemp_c,
+           min: dataArr[0].day.mintemp_c,
           amt: 10
         },
         {
-          name: dataArr[1].date,
-          uv: dataArr[1].day.avgtemp_c,
-          pv: dataArr[1].day.mintemp_c,
+          name: '2',
+          avg: dataArr[1].day.avgtemp_c,
+          min: dataArr[1].day.mintemp_c,
           amt: 10
         },
         {
-          name: dataArr[2].date,
-          uv: dataArr[2].day.avgtemp_c,
-          pv: dataArr[2].day.mintemp_c,
+          name: '3',
+          avg: dataArr[2].day.avgtemp_c,
+          min: dataArr[2].day.mintemp_c,
           amt: 10
         },
 
         
 
         {
-          name: dataArr[2].date,
-          uv: dataArr[3].day.avgtemp_c,
-          pv: dataArr[3].day.mintemp_c,
+          name: '4',
+          avg: dataArr[3].day.avgtemp_c,
+          min: dataArr[3].day.mintemp_c,
           amt: 10
         }
-      ];
+      ]
 
   return (
     <LineChart
       width={360}
-      height={300}
+      height={220}
       data={data}
       margin={{
         top: 5,
@@ -66,11 +67,12 @@ export default function Graphs(props) {
       <Legend />
       <Line
         type="monotone"
-        dataKey="pv"
+        dataKey="min"
         stroke="#8884d8"
         activeDot={{ r: 4 }}
       />
-      <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+      <Line type="monotone" dataKey="avg" stroke="#82ca9d" />
     </LineChart>
   );
 }
+export default React.memo(Graphs)

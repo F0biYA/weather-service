@@ -8,13 +8,19 @@
     padding: 5px;
     box-sizing: border-box;
     margin: 10px 0;
+    position: relative;
+}
+.cityCard__container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .cityCard__title {
     font-size: 22px;
     font-weight: 100;
     margin: 0;
     padding: 0 0 10px;
-    text-align: center;
+    text-align: left;
 }
 .cityCard__subtitle {
     font-size: 10px;
@@ -52,14 +58,17 @@ justify-content: space-between;
 width: 30%;
 gap: 15px;
 }
-.cityCard__bottomTitle {
-    width: 70%;
-    font-size: 22px;
-    font-weight: 100;
-    margin: 0 auto;
-    padding: 0;
-    text-align: center;
-}
-.graph__wrapper {
-    margin: 0 auto;
+
+.cityCard__delete-button {
+    border: none;
+    background: transparent;
+    background-image: url(../../images/delete_white.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 32px;
+    height: 40px;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    /* z-index: 1; */
 }

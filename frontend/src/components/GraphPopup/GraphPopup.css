@@ -1,0 +1,53 @@
+.graph__popup {
+
+    width: 100%;
+    max-width: 396px;
+    height: 100%;
+    position: fixed;
+    margin: 30px auto;
+    background-color: rgba(0, 0, 0, .9);
+    top: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: visibility 1s, opacity 1s ease-in-out;
+    z-index: 2;
+}
+
+.graphPopup__container {
+    margin: 15px auto;
+    text-align: center;
+    color: white;
+}
+
+.graphPopup__title {
+    width: 70%;
+    font-size: 22px;
+    font-weight: 100;
+    margin: 0 auto 15px;
+    padding: 0;
+    text-align: center;
+}
+
+.graph__wrapper {
+    margin: 20px auto;
+}
+
+.graphPopup__button-close {
+    width: 50%;
+    height: 45px;
+    border: none;
+    display: block;
+    margin: 0 auto 16px;
+    padding: 0;
+    background-color: #585858;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    letter-spacing: 0em;
+    text-align: center;
+    color: white;
+    border-radius: 8px;
+}

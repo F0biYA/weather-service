@@ -3,6 +3,7 @@ const City = require('../models/city');
 require('dotenv').config();
 
 const BadRequestError = require('../errors/badRequestError');
+const NotFoundError = require('../errors/notFoundError');
 
 module.exports.getCities = (req, res, next) => {
   City.find({})
@@ -26,4 +27,11 @@ module.exports.createCity = (req, res, next) => {
         next(err);
       }
     });
+};
+module.exports.deleteCity = (req, res, next) => {
+  const id = req.params.cityId;
+
+  City.findByIdAndRemove(id)
+    .then(() => res.status(200).send({ message: 'Карточка удалена' }))
+    .catch(() => next(new NotFoundError('Карточка не найдена')));
 };

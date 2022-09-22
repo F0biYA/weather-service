@@ -47,7 +47,7 @@ postCity({city, cityId}) {
 
   getWeather(city) {
   console.log(city)
-    return fetch(`http://api.weatherapi.com/v1/current.json?key=4552e5de13754964a20184224221809&lang=ru&q=${city.city}&aqi=no`, {
+    return fetch(`http://api.weatherapi.com/v1/forecast.json?key=4552e5de13754964a20184224221809&q=${city.city}&days=4&aqi=no&alerts=no`, {
       method: 'GET',
       // headers: this._headers,
       headers: {
@@ -58,7 +58,7 @@ postCity({city, cityId}) {
   }
   
   getHistoryWeather(city) {
-    console.log(city)
+  
       return fetch(`http://api.weatherapi.com/v1/forecast.json?key=4552e5de13754964a20184224221809&q=${city.city}&days=4&aqi=no&alerts=no`, {
         method: 'GET',
         // headers: this._headers,
@@ -68,9 +68,23 @@ postCity({city, cityId}) {
       })
         .then((response) => this._handleResponse(response));
     }
+
+    deleteCity(cityId) {
+      console.log(cityId)
+      return fetch(`${this._address}/cities/${cityId}`, {
+        method: 'DELETE',
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('jwt')}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => this._handleResponse(response));
+    }
+  
     }
   export const api = new Api({
-    address: "https://api.putilin.student.nomoreparties.sbs",
+    //address: "https://api.putilin.student.nomoreparties.sbs",
+    address: "http://localhost:2000",
     // headers: {
     //    authorization: `Bearer ${localStorage.getItem('jwt')}`,
     //   "Content-Type": "application/json",

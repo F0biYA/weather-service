@@ -10,13 +10,6 @@ const userSchema = new mongoose.Schema({
     maxlength: 30,
     default: 'Александр',
   },
-  city: {
-    type: String,
-    required: false,
-    minlength: 2,
-    maxlength: 30,
-    default: 'Москва',
-  },
   email: {
     type: String,
     required: true,

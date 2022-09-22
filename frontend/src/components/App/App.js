@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
@@ -10,18 +10,22 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import * as auth from '../../utils/auth.js';
 import ProtectedRoute from '../ProtectedRoute';
+import InfoPopup from '../InfoPopup/InfoPopup';
 
 function App() {
 
   const [cities, setCities] = useState([]);
-  const [history, setHistory] = useState([]);
+  const [weather, setWeather] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [status, setStatus] = useState();
+  const [infoPopup, setInfoPopup] = useState(false);
   const jwt = localStorage.getItem('jwt');
+  const [error,  setError] = useState('')
 
 
   useEffect(() => {
-    console.log('обычный')
+    
     if (loggedIn) {
       api.getUserInfo()
         .then((userInfoObject) => {
@@ -30,7 +34,7 @@ function App() {
         .catch((err) => {
           console.log(`Невозможно получить информацию о пользователе ${err}`);
         });
-        
+
     }
   }, [loggedIn])
 
@@ -44,42 +48,41 @@ function App() {
           setLoggedIn(true);
         }
       })
-      .catch(() => {
-        alert('Не правильные логин пароль');
+      .catch((error) => {
+        
+        setError(error)
+        setInfoPopup(true);
+        setStatus(false);
       })
   }
 
-//выход , обнуление локала
   function signOut() {
     setLoggedIn(false);
     localStorage.clear();
   }
-//регситрация
-  function handleRegister(name,email, password) {
+
+  function handleRegister(name, email, password) {
     return auth.register(name, email, password)
       .then(() => {
-        alert('Регистрация успешна')
+        setInfoPopup(true);
+        setStatus(true);
         handleLogin(email, password);
       })
-      .catch(() => {
-        alert('Что то пошло не так') ;
+      .catch((err) => {
+        setError(err)
+        setInfoPopup(true);
+        setStatus(false);
       })
   }
-
-  const handleCitySubmit = (city) => { 
-    api.getHistoryWeather(city).then((data)=>{
-      localStorage.setItem('historyWeather', JSON.stringify(data))
-      setHistory(data)
-    })
-  api.getWeather(city).then((data)=> {
-    localStorage.setItem('weather', JSON.stringify(data));
-    setCities(data)
-  }).catch(()=>console.log('error'))
-
+  function handleClose() {
+    setInfoPopup(false);
+  }
+  const handleCitySubmit = (city) => {
+    api.postCity(city).then((data) => console.log(data)).catch((err) => alert(err));
+    getWeatherArray()
   }
 
   useEffect(() => {
-    console.log('lay')
     if (jwt) {
       api.getUserInfo()
         .then((userInfoObject) => {
@@ -89,29 +92,45 @@ function App() {
         .catch((err) => {
           console.log(`Невозможно получить информацию о пользователе ${err}`);
         });
+      api.getCity().then((data) => setCities(data)).catch((err) => alert(err));
+      getWeatherArray();
+    }
+  }
+    , [jwt]);
 
-  }}
-  , [jwt]);
+  async function getWeatherArray() {
+    const cities = await api.getCity();
+    setCities(cities)
+    const weatherPromises = cities.map((item) => api.getWeather(item));
+    const weathers = await Promise.all(weatherPromises);
+    setWeather(weathers);
+  }
+  const deleteCity = (id) => {
+    api.deleteCity(id).then((res) => console.log(res));
+    getWeatherArray()
+
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    
+<InfoPopup close={handleClose} error={error} status={status} infoPopup={infoPopup}/>
       <Routes>
-
+        
         <Route path="/signin" element={<Login handleLogin={handleLogin} />} />
         <Route path="/signup" element={<Register handleRegister={handleRegister} />} />
-        {/* <Route path='/' element={<Main cities={cities}/>}/> */}
-         <Route
+  
+        <Route
           path="/"
           element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Main history={history} loggedIn={loggedIn} cities={cities} signOut={signOut} submitCity={handleCitySubmit} 
+              <Main 
+              status={status} closePopup={handleClose} infoPopup={infoPopup} handleDelete={deleteCity} loggedIn={loggedIn} cities={cities} weather={weather} signOut={signOut} submitCity={handleCitySubmit}
               />
             </ProtectedRoute>
           }
-        /> 
+        />
       </Routes>
- 
+
     </CurrentUserContext.Provider>
   )
 }
