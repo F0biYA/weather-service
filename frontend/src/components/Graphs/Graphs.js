@@ -10,15 +10,11 @@ import {
   Legend
 } from "recharts";
 
-
-
 function Graphs(props) {
 const dataArr = [];
 props.data.forecastday.forEach((item, index)=>dataArr[index] = item );
 
-  const 
-  
-   data = [
+  const data = [
         {
           name: '1',
           avg: dataArr[0].day.avgtemp_c,

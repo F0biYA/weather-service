@@ -77,9 +77,16 @@ function App() {
   function handleClose() {
     setInfoPopup(false);
   }
-  const handleCitySubmit = (city) => {
-    api.postCity(city).then((data) => console.log(data)).catch((err) => alert(err));
+ async function handleCitySubmit(city) {
+    await checkCorrectName(city);
     getWeatherArray()
+  }
+
+
+  async function checkCorrectName(city) {
+    await api.checkCityName(city).then((data)=>{api.postCity(city).then((data) => console.log(data)).catch((err) => alert(err));}).catch((err)=> {
+      setInfoPopup(true);
+      setError('Город не найден')});
   }
 
   useEffect(() => {
@@ -105,8 +112,8 @@ function App() {
     const weathers = await Promise.all(weatherPromises);
     setWeather(weathers);
   }
-  const deleteCity = (id) => {
-    api.deleteCity(id).then((res) => console.log(res));
+    async function deleteCity (id)  {
+    await api.deleteCity(id).then((res) => console.log(res));
     getWeatherArray()
 
   }

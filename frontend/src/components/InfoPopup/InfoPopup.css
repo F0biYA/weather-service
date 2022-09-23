@@ -1,7 +1,7 @@
 .popup {
-    width: 100%;
-    max-width: 396px;
-    height: 50%;
+    width: 100vw;
+    /* max-width: 396px; */
+    height: 100vh;
     position: fixed;
     margin: 30px auto;
     background-color: rgba(0, 0, 0, .9);
@@ -31,7 +31,7 @@
   .popup__info-image {
     width: 120px;
     height: 120px;
-    margin: 60px auto 32px auto;
+    margin: 20px auto 10px auto;
     display:block;
 }
 .popup__text {
@@ -53,7 +53,8 @@
   .popup__container {
     margin: 0;
     padding: 0;
-
+    height: 300px;
+    width: 320px;
     position: relative;
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     border-radius: 10px;

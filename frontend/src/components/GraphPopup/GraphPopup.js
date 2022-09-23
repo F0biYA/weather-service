@@ -4,7 +4,6 @@ import Graphs from "../Graphs/Graphs";
 import './GraphPopup.css';
 
 function GraphPopup(props) {
-console.log(props.data)
         return (
         <div className={ `graph__popup ${props.data && 'popup_opened'}`}>
             <button type='button' onClick={props.close} className="graphPopup__button-close hover">Закрыть</button>

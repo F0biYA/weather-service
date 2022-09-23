@@ -46,7 +46,7 @@ postCity({city, cityId}) {
 }
 
   getWeather(city) {
-  console.log(city)
+
     return fetch(`http://api.weatherapi.com/v1/forecast.json?key=4552e5de13754964a20184224221809&q=${city.city}&days=4&aqi=no&alerts=no`, {
       method: 'GET',
       // headers: this._headers,
@@ -57,9 +57,9 @@ postCity({city, cityId}) {
       .then((response) => this._handleResponse(response));
   }
   
-  getHistoryWeather(city) {
-  
-      return fetch(`http://api.weatherapi.com/v1/forecast.json?key=4552e5de13754964a20184224221809&q=${city.city}&days=4&aqi=no&alerts=no`, {
+  checkCityName(city) {
+  console.log(city.city)
+      return fetch(`http://api.weatherapi.com/v1/current.json?key=4552e5de13754964a20184224221809&q=${city.city}&aqi=no`, {
         method: 'GET',
         // headers: this._headers,
         headers: {
