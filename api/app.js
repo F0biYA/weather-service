@@ -6,7 +6,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const { PORT = 2000 } = process.env;
+const port = process.env.PORT || 2000;
 /* подключаю mongo */
 mongoose.connect('mongodb://localhost:27017/testDB');
 
@@ -85,7 +85,7 @@ app.use(errors());
 /* все не пойманные ошибки приводим к ошибке сервера 500 */
 app.use(handleError);
 
-app.listen(PORT, () => {
+app.listen(port, () => {
   // eslint-disable-next-line no-console
-  console.log(`App listening on port ${PORT}`);
+  console.log(`App listening on port ${port}`);
 });
