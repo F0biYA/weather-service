@@ -64,8 +64,8 @@ function App() {
   function handleRegister(name, email, password) {
     return auth.register(name, email, password)
       .then(() => {
-        setInfoPopup(true);
-        setStatus(true);
+        // setInfoPopup(true);
+        // setStatus(true);
         handleLogin(email, password);
       })
       .catch((err) => {

@@ -5,16 +5,23 @@ services:
     container_name: api_backend_weather
     ports:
       - '2000:2000'
-    # volumes:
-    #   - ./api:/app
+    volumes:
+      - ./api:/app
     #   - ./app/node_modules
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27017:27017"
   client:
     build: ./client
     container_name: client_frontend_weather
     ports:
       - '3000:3000'
-    # volumes:
-    #   - ./client:/app
+    volumes:
+      - ./client:/app
     #   - ./app/node_modules
     stdin_open: true
     tty: true

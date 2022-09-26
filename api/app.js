@@ -8,7 +8,8 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 2000;
 /* подключаю mongo */
-mongoose.connect('mongodb://localhost:27017/testDB');
+// mongoose.connect('mongodb://localhost:27017/testDB');
+mongoose.connect('mongodb://mongo:27017/expressmongo');
 
 /* импорт ошибок */
 const NotFoundError = require('./errors/notFoundError');
